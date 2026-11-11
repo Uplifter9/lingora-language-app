@@ -573,13 +573,16 @@ class LingoraApp {
   }
 
   speak(text, langCode = 'en-US') {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = langCode;
-      u.rate = 0.9;
-      speechSynthesis.speak(u);
-    }
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = langCode || 'en-US';
+    u.rate = 0.85;
+    const voices = window.speechSynthesis.getVoices();
+    const langPrefix = (langCode || 'en').split('-')[0];
+    const match = voices.find(v => v.lang && v.lang.startsWith(langPrefix));
+    if (match) u.voice = match;
+    window.speechSynthesis.speak(u);
   }
 
   render() {
@@ -950,9 +953,10 @@ class LingoraApp {
 
 
   renderSentences(card, progress) {
+    const pair = PAIRS.find(p => p.id === this.state.selectedPair) || {to: "en"};
     const sentence = card.example && card.example.toLowerCase().includes(card.front.toLowerCase()) 
       ? card.example 
-      : `I use the word "${card.front}" in this sentence.`;
+      : `${card.front} — ${card.back}`;
     const allBacks = (VOCAB[this.state.selectedPair] || []).map(c => c.back);
     const options = [card.back, ...allBacks.filter(b => b !== card.back).slice(0, 3)].sort(() => Math.random() - 0.5);
     const frontLang = getSpeechLang(this.state.selectedPair, 'front');
