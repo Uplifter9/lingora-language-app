@@ -955,38 +955,38 @@ class LingoraApp {
 
   renderSentences(card, progress) {
     const templates = {
-      food: ["I would like some {w}, please.", "This {w} is delicious.", "Can I have {w}?"],
-      family: ["This is my {w}.", "I love my {w}.", "My {w} is kind."],
-      actions: ["I need to {w}.", "I like to {w}.", "Let's {w}."],
-      places: ["Let's go to the {w}.", "The {w} is nearby."],
-      colors: ["The color is {w}.", "I like {w}."],
-      time: ["It is {w}.", "See you {w}."],
-      adjectives: ["It is very {w}.", "This is {w}."],
-      body: ["My {w} hurts.", "I have a {w}."],
-      technology: ["I use {w} every day.", "This {w} is new."],
-      shopping: ["How much is this {w}?", "I want to buy {w}."],
-      travel: ["I am traveling to {w}.", "The {w} is beautiful."],
-      work: ["I work in {w}.", "My job involves {w}."],
-      health: ["I need help with my {w}.", "Take this {w}."],
-      emotions: ["I feel {w}.", "I am {w} today."],
-      nature: ["I love the {w}.", "Look at the {w}."],
-      animals: ["I see a {w}.", "The {w} is cute."],
-      clothes: ["I am wearing {w}.", "This {w} is nice."],
-      house: ["This is my {w}.", "The {w} is clean."],
-      basics: ["The word is {w}.", "I know {w}."],
-      greetings: ["We say {w}.", "{w} is a greeting."],
-      numbers: ["The number is {w}.", "I have {w}."],
-      questions: ["What is {w}?", "Can you tell me {w}?"],
-      business: ["In business we use {w}.", "The {w} is important."],
-      education: ["We learn about {w}.", "I study {w}."],
-      sports: ["I play {w}.", "The {w} is fun."],
-      music: ["I like {w}.", "Listen to {w}."],
-      weather: ["The weather is {w}.", "It is {w} today."],
-      transport: ["I take the {w}.", "The {w} is fast."],
-      communication: ["Send me a {w}.", "I received a {w}."],
-      "daily life": ["Every day I {w}.", "I {w} in the morning."],
-      science: ["We study {w}.", "The {w} is interesting."],
-      society: ["{w} is important in society.", "People care about {w}."]
+      food: ["I would like some {w}, please.", "This {w} tastes good.", "Can I order {w}?", "Do you have fresh {w}?", "I love eating {w}."],
+      family: ["This is my {w}.", "I love my {w} very much.", "My {w} is coming to visit.", "I live with my {w}.", "My {w} helps me a lot."],
+      actions: ["I need to {w} today.", "Can you help me {w}?", "I like to {w} in the morning.", "Let's {w} together.", "It's time to {w}."],
+      places: ["Let's meet at the {w}.", "The {w} is not far from here.", "I work near the {w}.", "Can you tell me where the {w} is?", "The {w} opens at nine."],
+      colors: ["My favorite color is {w}.", "This shirt is {w}.", "The sky looks {w} today.", "I painted the wall {w}.", "She is wearing a {w} dress."],
+      time: ["See you {w}.", "The meeting is {w}.", "I will call you {w}.", "It happened {w}.", "Let's meet {w}."],
+      adjectives: ["The weather is {w} today.", "This food is {w}.", "The movie was {w}.", "I feel {w}.", "That sounds {w}."],
+      body: ["My {w} hurts.", "I need to rest my {w}.", "Wash your {w} before eating.", "My {w} feels better now.", "The doctor checked my {w}."],
+      technology: ["I use my {w} every day.", "This {w} is very useful.", "Can you fix my {w}?", "I bought a new {w}.", "Turn off the {w}, please."],
+      shopping: ["How much does this {w} cost?", "I want to buy a {w}.", "This {w} is on sale.", "Do you have this {w} in another size?", "I need a new {w}."],
+      travel: ["I am traveling to {w}.", "Have you been to {w}?", "The {w} is beautiful.", "I booked a trip to {w}.", "We visited {w} last year."],
+      work: ["I work in {w}.", "My job involves {w}.", "I have a meeting about {w}.", "The {w} project is important.", "I finished the {w} report."],
+      health: ["I need to see a doctor about my {w}.", "Take this medicine for your {w}.", "Rest is important for {w}.", "I have a problem with my {w}.", "The doctor said my {w} is fine."],
+      emotions: ["I feel {w} today.", "You look {w}.", "Don't be {w}.", "I am {w} because of the news.", "She seems {w}."],
+      nature: ["I love walking in the {w}.", "The {w} is beautiful in spring.", "We should protect the {w}.", "Look at the {w}.", "The {w} is very peaceful."],
+      animals: ["I saw a {w} in the park.", "The {w} is very cute.", "My {w} likes to play.", "Look at that {w}.", "The {w} is sleeping."],
+      clothes: ["I am wearing a {w}.", "This {w} looks good on you.", "I need to buy a new {w}.", "The {w} is too big.", "I like this {w}."],
+      house: ["This is my {w}.", "The {w} is very clean.", "I live in a small {w}.", "Please close the {w}.", "My {w} has a nice view."],
+      basics: ["The word {w} is useful.", "I learned the word {w}.", "Can you say {w}?", "Remember the word {w}.", "This means {w}."],
+      greetings: ["We say {w} when we meet.", "{w} is a common greeting.", "I always say {w} to my friends.", "Say {w} politely.", "{w} means hello."],
+      numbers: ["The number is {w}.", "I have {w} apples.", "Count to {w}.", "There are {w} people here.", "The price is {w} dollars."],
+      questions: ["Can you explain {w}?", "What does {w} mean?", "I have a question about {w}.", "Do you know {w}?", "Tell me more about {w}."],
+      business: ["We discussed {w} in the meeting.", "The {w} is important for the company.", "I sent the {w} report.", "Our {w} strategy is working.", "Please review the {w}."],
+      education: ["We are learning about {w}.", "The teacher explained {w}.", "I study {w} at school.", "This {w} is interesting.", "Students need to understand {w}."],
+      sports: ["I play {w} on weekends.", "The {w} game was exciting.", "I like watching {w}.", "My favorite sport is {w}.", "We practice {w} every day."],
+      music: ["I listen to {w} music.", "This {w} sounds beautiful.", "Can you play the {w}?", "I love {w}.", "The {w} concert was great."],
+      weather: ["The weather is {w} today.", "It looks {w} outside.", "I hope it will be {w} tomorrow.", "The sky is {w}.", "It's a {w} day."],
+      transport: ["I take the {w} to work.", "The {w} is late today.", "I drive a {w}.", "The {w} is comfortable.", "We traveled by {w}."],
+      communication: ["I sent you a {w}.", "Did you receive my {w}?", "Call me on {w}.", "I prefer {w} over email.", "Please reply to my {w}."],
+      "daily life": ["Every morning I {w}.", "I {w} after work.", "It's important to {w}.", "I like to {w} on weekends.", "Don't forget to {w}."],
+      science: ["Scientists study {w}.", "We learned about {w} in class.", "The {w} is fascinating.", "Research on {w} is important.", "This experiment involves {w}."],
+      society: ["{w} is important in our society.", "People care about {w}.", "We should talk about {w}.", "This {w} affects everyone.", "Society needs more {w}."]
     };
     const catTemplates = templates[card.category] || ["This is {w}."];
     const sentence = catTemplates[Math.floor(Math.random() * catTemplates.length)].replace('{w}', card.back);
@@ -1001,10 +1001,11 @@ class LingoraApp {
           <div class="text-sm text-slate-500">${this.cardIndex + 1} / ${this.currentCards.length}</div>
         </div>
         <div class="bg-white rounded-3xl p-6 mb-4 text-center">
-          <p class="text-lg leading-relaxed mb-3">${sentence}</p>
+          <p class="text-lg leading-relaxed mb-2">${sentence}</p>
+          <p class="text-sm text-slate-500 mb-3">${card.front} — ${card.back}</p>
           <div class="flex gap-2 justify-center">
             <button onclick="event.stopPropagation(); lingora.speak('${sentence.replace(/'/g, "\\'")}', '${backLang}')" class="bg-indigo-100 text-indigo-700 px-3 py-2 rounded-full text-sm">🔊 משפט</button>
-            <button onclick="event.stopPropagation(); lingora.speak('${card.back.replace(/'/g, "\\'")}', '${backLang}')" class="bg-emerald-100 text-emerald-700 px-3 py-2 rounded-full text-sm">🔊 תרגום</button>
+            <button onclick="event.stopPropagation(); lingora.speak('${card.front.replace(/'/g, "\\'")}', '${frontLang}')" class="bg-emerald-100 text-emerald-700 px-3 py-2 rounded-full text-sm">🔊 מקור</button>
           </div>
         </div>
         <p class="text-sm text-slate-500 mb-3 text-center">בחר את התרגום הנכון:</p>
