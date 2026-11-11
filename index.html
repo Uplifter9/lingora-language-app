@@ -815,7 +815,7 @@ class LingoraApp {
           <div class="text-6xl mb-3">${icon}</div>
           <h2 class="text-3xl font-bold mb-2">${msg}</h2>
           <p class="text-lg opacity-90">${f.front}</p>
-          <p class="text-xl font-semibold mt-2">${f.correctAnswer}</p>
+          <p class="text-xl font-semibold mt-2">${f.correctAnswer}${f.example ? `<p class="text-sm text-slate-500 mt-2">${f.example}</p>` : ''}</p>
         </div>
         <button onclick="lingora.speak('${f.correctAnswer.replace(/'/g, "\'")}')" class="mb-4 bg-white text-indigo-600 px-6 py-3 rounded-full font-medium shadow">
           🔊 השמע
