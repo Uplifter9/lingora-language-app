@@ -953,10 +953,7 @@ class LingoraApp {
 
 
   renderSentences(card, progress) {
-    const pair = PAIRS.find(p => p.id === this.state.selectedPair) || {to: "en"};
-    const sentence = card.example && card.example.toLowerCase().includes(card.front.toLowerCase()) 
-      ? card.example 
-      : `${card.front} — ${card.back}`;
+    const sentence = `I would like some ${card.front}.`;
     const allBacks = (VOCAB[this.state.selectedPair] || []).map(c => c.back);
     const options = [card.back, ...allBacks.filter(b => b !== card.back).slice(0, 3)].sort(() => Math.random() - 0.5);
     const frontLang = getSpeechLang(this.state.selectedPair, 'front');
@@ -968,7 +965,7 @@ class LingoraApp {
           <div class="text-sm text-slate-500">${this.cardIndex + 1} / ${this.currentCards.length}</div>
         </div>
         <div class="bg-white rounded-3xl p-6 mb-4 text-center">
-          <p class="text-lg leading-relaxed mb-3">${sentence.replace(new RegExp(card.front, 'gi'), '<span class="font-bold text-indigo-600">' + card.front + '</span>')}</p>
+          <p class="text-lg leading-relaxed mb-3">${sentence}</p>
           <div class="flex gap-2 justify-center">
             <button onclick="event.stopPropagation(); lingora.speak('${sentence.replace(/'/g, "\\'")}', '${frontLang}')" class="bg-indigo-100 text-indigo-700 px-3 py-2 rounded-full text-sm">🔊 משפט</button>
             <button onclick="event.stopPropagation(); lingora.speak('${card.back.replace(/'/g, "\\'")}', '${backLang}')" class="bg-emerald-100 text-emerald-700 px-3 py-2 rounded-full text-sm">🔊 תרגום</button>
