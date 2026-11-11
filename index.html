@@ -747,6 +747,18 @@ class LingoraApp {
     `;
   }
 
+
+  newSession(mode = 'flashcards') {
+    this.currentMode = mode;
+    this.currentScreen = 'practice';
+    this.cardIndex = 0;
+    this.feedback = null;
+    this.matchingState = null;
+    this.sessionStats = { correct: 0, total: 0, xp: 0 };
+    this.currentCards = (VOCAB[this.state.selectedPair] || []).slice(0, 12);
+    this.render();
+  }
+
   startMode(mode) {
     this.currentMode = mode;
     this.currentScreen = 'practice';
@@ -1129,7 +1141,7 @@ class LingoraApp {
             <div class="text-xs text-slate-500">${t('cards')}</div>
           </div>
         </div>
-        <button onclick="lingora.startMode('flashcards')" class="w-full bg-gradient-to-r from-indigo-500 to-purple-500 py-4 rounded-2xl font-semibold mb-3">התחל סשן חדש</button>
+        <button onclick="lingora.newSession('flashcards')" class="w-full bg-gradient-to-r from-indigo-500 to-purple-500 py-4 rounded-2xl font-semibold mb-3">התחל סשן חדש</button>
         <button onclick="lingora.goHome()" class="w-full bg-white border py-4 rounded-2xl font-semibold">${t('back')}</button>
       </div>
     `;
