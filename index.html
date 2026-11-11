@@ -1023,8 +1023,9 @@ class LingoraApp {
     const catTemplates = templates[card.category] || ["This is {w}."];
     const targetWord = card.back || card.front;
     const sourceWord = card.front || card.back;
-    const sentence = catTemplates[Math.floor(Math.random() * catTemplates.length)].replace('{w}', targetWord);
-    const sourceSentence = catTemplates[Math.floor(Math.random() * catTemplates.length)].replace('{w}', sourceWord);
+    // Simple correct sentences
+    const sentence = `I want ${targetWord}.`;
+    const sourceSentence = `אני רוצה ${sourceWord}.`;
     const allBacks = (VOCAB[this.state.selectedPair] || []).map(c => c.back);
     const options = [card.back, ...allBacks.filter(b => b !== card.back).slice(0, 3)].sort(() => Math.random() - 0.5);
     const frontLang = getSpeechLang(this.state.selectedPair, 'front');
