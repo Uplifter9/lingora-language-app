@@ -595,6 +595,7 @@ class LingoraApp {
     else if (this.currentScreen === 'words') app.innerHTML = this.getTopNav() + this.renderWords();
     else if (this.currentScreen === 'settings') app.innerHTML = this.getTopNav() + this.renderSettings();
     else if (this.currentScreen === 'matching') app.innerHTML = this.getTopNav() + this.renderMatchingGame();
+    else if (this.currentScreen === 'sessionComplete') app.innerHTML = this.renderSessionComplete();
   }
 
 
@@ -1067,7 +1068,7 @@ class LingoraApp {
       </header>
       <div class="px-6 grid grid-cols-2 gap-3">
         ${cards.map((c, i) => `
-          <button onclick="lingora.selectMatch(${i})" class="game-card bg-white rounded-2xl p-4 min-h-[100px] flex flex-col items-center justify-center ${matched.has(c.pair) ? 'matched' : ''} ${this.matchingState.selected === i ? 'ring-2 ring-indigo-500' : ''}">
+          <button onclick="lingora.selectMatch(${i})" class="game-card bg-white rounded-2xl p-4 min-h-[100px] flex flex-col items-center justify-center ${matched.has(c.pair) ? 'opacity-0 pointer-events-none' : ''} ${this.matchingState.selected === i ? 'ring-2 ring-indigo-500' : ''}">
             <div class="text-3xl mb-1">${c.emoji || '📝'}</div>
             <div class="text-sm text-center font-medium">${c.text}</div>
           </button>
@@ -1097,11 +1098,9 @@ class LingoraApp {
     if (state.matched.size >= state.cards.length / 2) {
       this.sessionStats.total = state.cards.length / 2;
       this.recordPractice();
-      setTimeout(() => {
-        this.currentScreen = 'home';
-        this.render();
-        alert(t('congratulations'));
-      }, 500);
+      this.currentScreen = 'sessionComplete';
+      this.render();
+      return;
     }
     this.render();
   }
