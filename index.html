@@ -954,7 +954,42 @@ class LingoraApp {
 
 
   renderSentences(card, progress) {
-    const sentence = `I would like some ${card.front}.`;
+    const templates = {
+      food: ["I would like some {w}, please.", "This {w} is delicious.", "Can I have {w}?"],
+      family: ["This is my {w}.", "I love my {w}.", "My {w} is kind."],
+      actions: ["I need to {w}.", "I like to {w}.", "Let's {w}."],
+      places: ["Let's go to the {w}.", "The {w} is nearby."],
+      colors: ["The color is {w}.", "I like {w}."],
+      time: ["It is {w}.", "See you {w}."],
+      adjectives: ["It is very {w}.", "This is {w}."],
+      body: ["My {w} hurts.", "I have a {w}."],
+      technology: ["I use {w} every day.", "This {w} is new."],
+      shopping: ["How much is this {w}?", "I want to buy {w}."],
+      travel: ["I am traveling to {w}.", "The {w} is beautiful."],
+      work: ["I work in {w}.", "My job involves {w}."],
+      health: ["I need help with my {w}.", "Take this {w}."],
+      emotions: ["I feel {w}.", "I am {w} today."],
+      nature: ["I love the {w}.", "Look at the {w}."],
+      animals: ["I see a {w}.", "The {w} is cute."],
+      clothes: ["I am wearing {w}.", "This {w} is nice."],
+      house: ["This is my {w}.", "The {w} is clean."],
+      basics: ["The word is {w}.", "I know {w}."],
+      greetings: ["We say {w}.", "{w} is a greeting."],
+      numbers: ["The number is {w}.", "I have {w}."],
+      questions: ["What is {w}?", "Can you tell me {w}?"],
+      business: ["In business we use {w}.", "The {w} is important."],
+      education: ["We learn about {w}.", "I study {w}."],
+      sports: ["I play {w}.", "The {w} is fun."],
+      music: ["I like {w}.", "Listen to {w}."],
+      weather: ["The weather is {w}.", "It is {w} today."],
+      transport: ["I take the {w}.", "The {w} is fast."],
+      communication: ["Send me a {w}.", "I received a {w}."],
+      "daily life": ["Every day I {w}.", "I {w} in the morning."],
+      science: ["We study {w}.", "The {w} is interesting."],
+      society: ["{w} is important in society.", "People care about {w}."]
+    };
+    const catTemplates = templates[card.category] || ["This is {w}."];
+    const sentence = catTemplates[Math.floor(Math.random() * catTemplates.length)].replace('{w}', card.front);
     const allBacks = (VOCAB[this.state.selectedPair] || []).map(c => c.back);
     const options = [card.back, ...allBacks.filter(b => b !== card.back).slice(0, 3)].sort(() => Math.random() - 0.5);
     const frontLang = getSpeechLang(this.state.selectedPair, 'front');
