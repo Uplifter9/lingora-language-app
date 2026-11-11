@@ -749,6 +749,9 @@ class LingoraApp {
 
   startMode(mode) {
     this.currentMode = mode;
+    this.cardIndex = 0;
+    this.feedback = null;
+    this.matchingState = null;
     let cards = this.getDueCards(this.state.selectedPair);
     if (cards.length < 5) cards = [...cards, ...this.getNewCards(this.state.selectedPair, 10)];
     // sentences mode uses regular cards with examples
