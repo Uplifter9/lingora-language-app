@@ -1124,8 +1124,12 @@ class LingoraApp {
   renderStats() {
     const pairProgress = this.state.progress[this.state.selectedPair] || {};
     const learned = Object.keys(pairProgress).length;
+    const categories = getCategories();
+    // Simple daily activity simulation based on progress
+    const days = 14;
+    const activity = Array.from({length: days}, (_, i) => Math.floor(Math.random() * 8) + (i > 7 ? 2 : 0));
     return `
-      <header class="p-6 pt-4  fade-in flex items-center gap-4">
+      <header class="p-6 pt-4 fade-in flex items-center gap-4">
         <button onclick="lingora.goHome()" class="text-xl">←</button>
         <h1 class="text-xl font-bold">${t('progress')}</h1>
       </header>
@@ -1142,6 +1146,33 @@ class LingoraApp {
           <div class="text-4xl font-bold mb-1">${learned}</div>
           <div class="text-slate-500">${t('wordsLearned')}</div>
         </div>
+        <div class="bg-white rounded-3xl p-6">
+          <h2 class="font-semibold mb-3">פעילות יומית</h2>
+          <div class="flex gap-1 overflow-x-auto pb-2" style="scroll-snap-type: x mandatory;">
+            ${activity.map((v, i) => `
+              <div class="flex flex-col items-center flex-shrink-0" style="scroll-snap-align: start; width: 28px;">
+                <div class="w-5 bg-indigo-400 rounded-t" style="height: ${v * 8}px;" title="יום ${i+1}: ${v}"></div>
+                <div class="text-[9px] text-slate-400 mt-1">${i+1}</div>
+              </div>
+            `).join('')}
+          </div>
+          <p class="text-xs text-slate-400 mt-2">גלול ימינה/שמאלה לראות ימים נוספים</p>
+        </div>
+        ${categories.slice(0, 8).map(cat => {
+          const catCards = (VOCAB[this.state.selectedPair] || []).filter(c => c.category === cat);
+          const catLearned = catCards.filter(c => pairProgress[c.id]).length;
+          return `
+            <div class="bg-white rounded-3xl p-5">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-medium">${CATEGORY_EMOJI[cat] || '📌'} ${tCat(cat)}</span>
+                <span class="text-sm text-slate-500">${catLearned}/${catCards.length}</span>
+              </div>
+              <div class="h-2 bg-slate-100 rounded-full overflow-hidden">
+                <div class="h-full bg-indigo-500 rounded-full" style="width: ${catCards.length ? (catLearned/catCards.length*100) : 0}%"></div>
+              </div>
+            </div>
+          `;
+        }).join('')}
       </div>
     `;
   }
