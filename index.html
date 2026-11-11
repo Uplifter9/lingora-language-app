@@ -1166,13 +1166,8 @@ class LingoraApp {
         </div>
         <div class="bg-white rounded-3xl p-6">
           <h2 class="font-semibold mb-3">פעילות יומית</h2>
-          <div class="flex gap-1 overflow-x-auto pb-2" style="scroll-snap-type: x mandatory;">
-            ${activity.map((v, i) => {
-              <div class="flex flex-col items-center flex-shrink-0" style="scroll-snap-align: start; width: 28px;">
-                <div class="w-5 bg-indigo-400 rounded-t" style="height: ${v * 8}px;" title="יום ${i+1}: ${v}"></div>
-                <div class="text-[9px] text-slate-400 mt-1">${i+1}</div>
-              </div>
-            `).join('')}
+          <div class="flex items-end gap-1 overflow-x-auto pb-2 h-20">
+            ${activity.map((v, i) => `<div class="flex flex-col items-center flex-shrink-0" style="width:32px"><div class="w-5 bg-indigo-500 rounded-t" style="height:${Math.max(4,v*5)}px"></div><div class="text-[8px] text-slate-400">${i+1}</div></div>`).join('')}
           </div>
           <p class="text-xs text-slate-400 mt-2">גלול ימינה/שמאלה לראות ימים נוספים</p>
         </div>
