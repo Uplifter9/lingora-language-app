@@ -519,6 +519,15 @@ class LingoraApp {
     this.saveState();
   }
 
+
+  recordDailyActivity() {
+    const today = new Date().toISOString().slice(0, 10);
+    if (!this.state.dailyActivity) this.state.dailyActivity = {};
+    if (!this.state.dailyActivity[today]) this.state.dailyActivity[today] = 0;
+    this.state.dailyActivity[today]++;
+    this.saveState();
+  }
+
   updateCardProgress(cardId, quality) {
     const pair = this.state.selectedPair;
     if (!this.state.progress[pair]) this.state.progress[pair] = {};
@@ -891,6 +900,7 @@ class LingoraApp {
       this.sessionStats.xp += 10;
     }
     this.updateCardProgress(card.id, quality);
+    this.recordDailyActivity();
     this.cardIndex++;
     this.render();
   }
@@ -1128,8 +1138,10 @@ class LingoraApp {
     const learned = Object.keys(pairProgress).length;
     const categories = getCategories();
     // Simple daily activity simulation based on progress
-    const days = 14;
-    const activity = Array.from({length: days}, (_, i) => Math.floor(Math.random() * 8) + (i > 7 ? 2 : 0));
+    const activityData = this.state.dailyActivity || {};
+    const dates = Object.keys(activityData).sort().slice(-14);
+    const activity = dates.map(d => activityData[d] || 0);
+    if (activity.length === 0) activity.push(0);
     return `
       <header class="p-6 pt-4 fade-in flex items-center gap-4">
         <button onclick="lingora.goHome()" class="text-xl">←</button>
@@ -1151,7 +1163,7 @@ class LingoraApp {
         <div class="bg-white rounded-3xl p-6">
           <h2 class="font-semibold mb-3">פעילות יומית</h2>
           <div class="flex gap-1 overflow-x-auto pb-2" style="scroll-snap-type: x mandatory;">
-            ${activity.map((v, i) => `
+            ${activity.map((v, i) => {
               <div class="flex flex-col items-center flex-shrink-0" style="scroll-snap-align: start; width: 28px;">
                 <div class="w-5 bg-indigo-400 rounded-t" style="height: ${v * 8}px;" title="יום ${i+1}: ${v}"></div>
                 <div class="text-[9px] text-slate-400 mt-1">${i+1}</div>
@@ -1229,6 +1241,18 @@ class LingoraApp {
   }
 
   showModes() { this.currentScreen = 'modes'; this.render(); }
+
+  resetStats() {
+    if (confirm('לאפס את כל הסטטיסטיקה וההתקדמות?')) {
+      this.state.xp = 0;
+      this.state.streak = 0;
+      this.state.dailyActivity = {};
+      this.state.progress = {};
+      this.saveState();
+      this.render();
+    }
+  }
+
   showStats() { this.currentScreen = 'stats'; this.render(); }
   showSettings() { this.currentScreen = 'settings'; this.render(); }
   showWords() { this.currentScreen = 'words'; this.render(); }
