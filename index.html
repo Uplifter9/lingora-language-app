@@ -822,6 +822,7 @@ class LingoraApp {
     const bg = f.correct ? 'from-emerald-500 to-green-500' : 'from-red-500 to-rose-500';
     const icon = f.correct ? '✅' : '❌';
     const msg = f.correct ? 'נכון!' : 'לא נכון';
+    const backLang = getSpeechLang(this.state.selectedPair, 'back');
     return `
       <div class="p-6 pt-4 text-center fade-in">
         <div class="bg-gradient-to-br ${bg} text-white rounded-3xl p-8 mb-6 shadow-lg">
@@ -830,8 +831,8 @@ class LingoraApp {
           <p class="text-lg opacity-90">${f.front}</p>
           <p class="text-xl font-semibold mt-2">${f.correctAnswer}${f.example ? `<p class="text-sm text-slate-500 mt-2">${f.example}</p>` : ''}</p>
         </div>
-        <button onclick="lingora.speak('${f.correctAnswer.replace(/'/g, "\'")}')" class="mb-4 bg-white text-indigo-600 px-6 py-3 rounded-full font-medium shadow">
-          🔊 השמע
+        <button onclick="lingora.speak('${f.correctAnswer.replace(/'/g, "\\'")}', '${backLang}')" class="mb-4 bg-white text-indigo-600 px-6 py-3 rounded-full font-medium shadow">
+          🔊 השמע את התשובה
         </button>
         <button onclick="lingora.nextAfterFeedback()" class="w-full bg-indigo-500 text-white py-4 rounded-2xl font-semibold">
           המשך
