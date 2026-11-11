@@ -893,7 +893,11 @@ class LingoraApp {
   }
 
   generateOptions(card) {
-    const all = (VOCAB[this.state.selectedPair] || []).map(c => c.back);
+    const vocab = VOCAB[this.state.selectedPair] || [];
+    const all = vocab.map(c => c.back).filter(Boolean);
+    if (all.length < 4) {
+      return [card.back, 'option1', 'option2', 'option3'].sort(() => Math.random() - 0.5);
+    }
     const wrong = all.filter(b => b !== card.back).sort(() => Math.random() - 0.5).slice(0, 3);
     return [...wrong, card.back].sort(() => Math.random() - 0.5);
   }
@@ -1017,7 +1021,7 @@ class LingoraApp {
       society: ["{w} is important in our society.", "People care about {w}.", "We should talk about {w}.", "This {w} affects everyone.", "Society needs more {w}."]
     };
     const catTemplates = templates[card.category] || ["This is {w}."];
-    const sentence = catTemplates[Math.floor(Math.random() * catTemplates.length)].replace('{w}', card.back);
+    const sentence = catTemplates[Math.floor(Math.random() * catTemplates.length)].replace('{w}', card.back || card.front);
     const allBacks = (VOCAB[this.state.selectedPair] || []).map(c => c.back);
     const options = [card.back, ...allBacks.filter(b => b !== card.back).slice(0, 3)].sort(() => Math.random() - 0.5);
     const frontLang = getSpeechLang(this.state.selectedPair, 'front');
@@ -1030,9 +1034,10 @@ class LingoraApp {
         </div>
         <div class="bg-white rounded-3xl p-6 mb-4 text-center">
           <p class="text-lg leading-relaxed mb-2">${sentence}</p>
-          <button onclick="lingora.speak('${sentence.replace(/'/g, "\\'")}', '${backLang}')" class="mb-2 bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full text-sm">🔊 השמע משפט</button>
-          <p class="text-sm text-slate-500 mt-2">${card.front}</p>
-          <button onclick="lingora.speak('${card.front.replace(/'/g, "\\'")}', '${frontLang}')" class="mt-1 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full text-sm">🔊 השמע מקור</button>
+          <button onclick="lingora.speak('${(sentence||'').replace(/'/g, "\\'")}', '${backLang}')" class="mb-2 bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full text-sm">🔊 משפט בשפה הנלמדת</button>
+          <hr class="my-3 border-slate-100">
+          <p class="text-sm text-slate-600">${card.front}</p>
+          <button onclick="lingora.speak('${(card.front||'').replace(/'/g, "\\'")}', '${frontLang}')" class="mt-1 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full text-sm">🔊 תרגום בשפת המקור</button>
         </div>
         <p class="text-sm text-slate-500 mb-3 text-center">בחר את התרגום הנכון:</p>
         <div class="space-y-3">
