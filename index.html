@@ -772,6 +772,7 @@ class LingoraApp {
     this.matchingState = null;
     this.sessionStats = { correct: 0, total: 0, xp: 0 };
     let cards = this.getDueCards(this.state.selectedPair);
+    if (!cards || cards.length === 0) cards = (VOCAB[this.state.selectedPair] || []).slice(0, 12);
     if (cards.length < 5) cards = [...cards, ...this.getNewCards(this.state.selectedPair, 10)];
     // sentences mode uses regular cards with examples
     if (cards.length === 0) cards = (VOCAB[this.state.selectedPair] || []).slice(0, 8);
@@ -790,6 +791,10 @@ class LingoraApp {
 
   renderPractice() {
     if (this.feedback) return this.renderFeedback();
+    if (!this.currentCards || this.currentCards.length === 0) {
+      this.currentCards = (VOCAB[this.state.selectedPair] || []).slice(0, 12);
+      this.cardIndex = 0;
+    }
     if (this.cardIndex >= this.currentCards.length) {
       this.recordPractice();
       return this.renderSessionComplete();
