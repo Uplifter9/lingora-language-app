@@ -715,8 +715,7 @@ class LingoraApp {
       { icon: '💬', key: 'sentences', mode: 'sentences' },
       { icon: '🔊', key: 'listening', mode: 'listening' },
       { icon: '🔗', key: 'matching', mode: 'matching' },
-      { icon: '🧠', key: 'memory', mode: 'memory' },
-      { icon: '💬', key: 'sentences', mode: 'sentences' }
+      { icon: '🧠', key: 'memory', mode: 'memory' }
     ];
     return `
       <header class="p-6 pt-4  fade-in flex items-center gap-4">
@@ -941,16 +940,22 @@ class LingoraApp {
 
 
   renderSentences(card, progress) {
-    const sentence = card.example || `This is ${card.front}.`;
+    const sentence = card.example || `${card.front} is useful in daily life.`;
     const options = this.getOptions(card).slice(0, 4);
+    const frontLang = getSpeechLang(this.state.selectedPair, 'front');
+    const backLang = getSpeechLang(this.state.selectedPair, 'back');
     return `
       <div class="p-6 pt-4">
         <div class="flex justify-between items-center mb-4">
           <button onclick="lingora.goHome()" class="text-slate-500">✕</button>
           <div class="text-sm text-slate-500">${this.cardIndex + 1} / ${this.currentCards.length}</div>
         </div>
-        <div class="bg-white rounded-3xl p-6 mb-6">
-          <p class="text-lg text-center leading-relaxed">${sentence.replace(card.front, '<span class="font-bold text-indigo-600">' + card.front + '</span>')}</p>
+        <div class="bg-white rounded-3xl p-6 mb-4 text-center">
+          <p class="text-lg leading-relaxed mb-3">${sentence}</p>
+          <div class="flex gap-2 justify-center">
+            <button onclick="event.stopPropagation(); lingora.speak('${sentence.replace(/'/g, "\\'")}', '${frontLang}')" class="bg-indigo-100 text-indigo-700 px-3 py-2 rounded-full text-sm">🔊 משפט</button>
+            <button onclick="event.stopPropagation(); lingora.speak('${card.back.replace(/'/g, "\\'")}', '${backLang}')" class="bg-emerald-100 text-emerald-700 px-3 py-2 rounded-full text-sm">🔊 תרגום</button>
+          </div>
         </div>
         <p class="text-sm text-slate-500 mb-3 text-center">בחר את התרגום הנכון:</p>
         <div class="space-y-3">
