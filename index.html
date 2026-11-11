@@ -755,7 +755,12 @@ class LingoraApp {
     this.feedback = null;
     this.matchingState = null;
     this.sessionStats = { correct: 0, total: 0, xp: 0 };
-    this.currentCards = (VOCAB[this.state.selectedPair] || []).slice(0, 12);
+    let cards = VOCAB[this.state.selectedPair] || [];
+    if (cards.length === 0) cards = VOCAB['en-he'] || VOCAB['he-en'] || [];
+    this.currentCards = cards.slice(0, 12);
+    if (this.currentCards.length === 0) {
+      this.currentScreen = 'home';
+    }
     this.render();
   }
 
