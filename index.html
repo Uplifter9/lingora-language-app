@@ -1003,7 +1003,7 @@ class LingoraApp {
         </div>
         <div class="bg-white rounded-3xl p-6 mb-4 text-center">
           <p class="text-lg leading-relaxed mb-2">${sentence}</p>
-          <button onclick="lingora.speak('${card.back.replace(/'/g, "\\'")}', '${backLang}')" class="mb-2 bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full text-sm">🔊 השמע משפט</button>
+          <button onclick="lingora.speak('${sentence.replace(/'/g, "\\'")}', '${backLang}')" class="mb-2 bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full text-sm">🔊 השמע משפט</button>
           <p class="text-sm text-slate-500 mt-2">${card.front}</p>
           <button onclick="lingora.speak('${card.front.replace(/'/g, "\\'")}', '${frontLang}')" class="mt-1 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full text-sm">🔊 השמע מקור</button>
         </div>
