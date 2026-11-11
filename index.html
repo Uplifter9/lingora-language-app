@@ -941,7 +941,8 @@ class LingoraApp {
 
   renderSentences(card, progress) {
     const sentence = card.example || `${card.front} is useful in daily life.`;
-    const options = this.getOptions(card).slice(0, 4);
+    const allBacks = (VOCAB[this.state.selectedPair] || []).map(c => c.back);
+    const options = [card.back, ...allBacks.filter(b => b !== card.back).slice(0, 3)].sort(() => Math.random() - 0.5);
     const frontLang = getSpeechLang(this.state.selectedPair, 'front');
     const backLang = getSpeechLang(this.state.selectedPair, 'back');
     return `
