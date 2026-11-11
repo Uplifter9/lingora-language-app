@@ -1141,8 +1141,8 @@ class LingoraApp {
             <div class="text-xs text-slate-500">${t('cards')}</div>
           </div>
         </div>
-        <button onclick="location.reload()" class="w-full bg-gradient-to-r from-indigo-500 to-purple-500 py-4 rounded-2xl font-semibold mb-3">התחל מחדש</button>
-        <button onclick="location.href=location.pathname" class="w-full bg-white border py-4 rounded-2xl font-semibold">חזרה לבית</button>
+        <button onclick="lingora.newSession(lingora.currentMode || 'flashcards')" class="w-full bg-gradient-to-r from-indigo-500 to-purple-500 py-4 rounded-2xl font-semibold mb-3">התחל סשן חדש</button>
+        <button onclick="lingora.goHome()" class="w-full bg-white border py-4 rounded-2xl font-semibold">חזרה לבית</button>
       </div>
     `;
   }
