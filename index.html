@@ -712,6 +712,7 @@ class LingoraApp {
       { icon: '🃏', key: 'flashcards', mode: 'flashcards' },
       { icon: '❓', key: 'quiz', mode: 'quiz' },
       { icon: '⌨️', key: 'typing', mode: 'typing' },
+      { icon: '💬', key: 'sentences', mode: 'sentences' },
       { icon: '🔊', key: 'listening', mode: 'listening' },
       { icon: '🔗', key: 'matching', mode: 'matching' },
       { icon: '🧠', key: 'memory', mode: 'memory' },
@@ -764,6 +765,7 @@ class LingoraApp {
     if (this.currentMode === 'flashcards') return this.renderFlashcard(card, progress);
     if (this.currentMode === 'quiz') return this.renderQuiz(card, progress);
     if (this.currentMode === 'typing') return this.renderTyping(card, progress);
+    if (this.currentMode === 'sentences') return this.renderSentences(card, progress);
     if (this.currentMode === 'listening') return this.renderListening(card, progress);
     return this.renderFlashcard(card, progress);
   }
@@ -915,19 +917,51 @@ class LingoraApp {
 
   submitTyping() {
     const input = document.getElementById('typing-input');
-    const answer = (input?.value || '').trim().toLowerCase();
-    const correct = this.currentCards[this.cardIndex].back.toLowerCase();
-    const isCorrect = answer === correct;
+    const answer = (input?.value || '').trim();
+    const card = this.currentCards[this.cardIndex];
+    const correct = card.back.toLowerCase();
+    const isCorrect = answer.toLowerCase() === correct;
     this.sessionStats.total++;
     if (isCorrect) {
       this.sessionStats.correct++;
       this.sessionStats.xp += 15;
-      this.updateCardProgress(this.currentCards[this.cardIndex].id, 5);
+      this.updateCardProgress(card.id, 5);
     } else {
-      this.updateCardProgress(this.currentCards[this.cardIndex].id, 1);
+      this.updateCardProgress(card.id, 1);
     }
-    this.cardIndex++;
+    this.feedback = {
+      correct: isCorrect,
+      correctAnswer: card.back,
+      userAnswer: answer,
+      front: card.front,
+      example: card.example || ''
+    };
     this.render();
+  }
+
+
+  renderSentences(card, progress) {
+    const sentence = card.example || `This is ${card.front}.`;
+    const options = this.getOptions(card).slice(0, 4);
+    return `
+      <div class="p-6 pt-4">
+        <div class="flex justify-between items-center mb-4">
+          <button onclick="lingora.goHome()" class="text-slate-500">✕</button>
+          <div class="text-sm text-slate-500">${this.cardIndex + 1} / ${this.currentCards.length}</div>
+        </div>
+        <div class="bg-white rounded-3xl p-6 mb-6">
+          <p class="text-lg text-center leading-relaxed">${sentence.replace(card.front, '<span class="font-bold text-indigo-600">' + card.front + '</span>')}</p>
+        </div>
+        <p class="text-sm text-slate-500 mb-3 text-center">בחר את התרגום הנכון:</p>
+        <div class="space-y-3">
+          ${options.map(opt => `
+            <button onclick="lingora.checkAnswer(${opt === card.back}, '${opt.replace(/'/g, "\\'")}')" class="w-full bg-white hover:bg-indigo-50 border border-slate-200 py-4 rounded-2xl text-lg font-medium transition">
+              ${opt}
+            </button>
+          `).join('')}
+        </div>
+      </div>
+    `;
   }
 
   renderListening(card, progress) {
